@@ -1,11 +1,12 @@
 const express = require("express");
 const app = express();
+require("dotenv").config();
+
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 const cors = require("cors");
 const { unless } = require("express-unless");
 
-const ApiError = require("./utils/apiError");
 const { authenticate } = require("./middlewares/auth");
 const { errorHandler } = require("./middlewares/errorHandler");
 app.use(express.static("public"));
@@ -28,14 +29,15 @@ app.use(
     limit: "16kb",
   })
 );
-authenticate.unless = unless;
+ authenticate.unless = unless;
 app.use(authenticate.unless(authenticateRoutes));
 app.use(require("./middlewares/paginate").paginate);
+
+app.use(routes);
 
 app.use(requestLogger);
 app.use(errorHandler);
 
-app.use(authenticate);
-app.use(routes);
+ app.use(authenticate);
 
 module.exports = app;

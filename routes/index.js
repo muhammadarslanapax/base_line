@@ -1,10 +1,15 @@
 const router = require("express").Router();
 
-// router.use(require('../controllers/userAuth/authController.js'));
-// router.use(require('../controllers/driverAuth/authController.js'));
-// router.use(require('../controllers/user/userController.js'));
-// router.use(require('../controllers/driver/index.js'));
-// router.use(require('../controllers/card/index.js'));
-// router.use(require('../controllers/ride/index.js'));
+router.use(require("../controllers/user/index.js"));
+router.use(require("../controllers/auth/index.js"));
+router.use(require("../controllers/business/index.js"));
+router.use(require("../controllers/subscription_plan/index.js"));
+router.use(require("../controllers/service/index.js"));
+router.use(require("../controllers/booking/index.js"));
+
+
+
+
+
 
 module.exports = router;

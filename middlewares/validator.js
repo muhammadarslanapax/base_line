@@ -1,6 +1,6 @@
-module.exports.validateParams = (schema) => {
+module.exports.validateBody = (schema) => {
   return (req, res, next) => {
-    const { error } = schema.validate(req.params);
+    const { error } = schema.validate(req.body);
     if (error) {
       const errorMsg = error.details[0].message;
       const err = errorMsg.replace(/"/g, "");

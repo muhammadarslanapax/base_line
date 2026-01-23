@@ -5,11 +5,15 @@ module.exports = {
     UNAUTHORIZED: 401,
     NOT_FOUND: 404,
     CONFLICT: 409,
+    BAD_REQUEST:400,
     REQUIRED: 400,
     INTERNAL_SERVER_ERROR: 500,
   },
   TEXTS: {
+    REGISTER: "User registered successfully!",
+
     LOC_EXIST: "User has already subrscribed valid LOC!",
+    INTERNAL_SERVER_ERROR: "internal server error",
     CREATED: "Record created successfully!",
     UPDATED: "Record updated successfully!",
     DELETED: "Record deleted successfully!",
@@ -44,5 +48,7 @@ module.exports = {
     PASSWORD_UPDATED: "Password Updated",
     PROFILE_UPDATED: "Profile Updated",
     UPDATE_FAILED: "Update failed",
+    USER_FETCH: "user fetch successfully!",
+
   },
 };

@@ -123,6 +123,7 @@ const sendOTPEmail = async (to, otp) => {
   }
 };
 
+
 /**
  * Verify email transporter configuration
  * @returns {Promise<boolean>} - Verification result
@@ -138,8 +139,60 @@ const verifyEmailConfig = async () => {
   }
 };
 
+
+
+/**
+ * Send booking confirmation email
+ * @param {string} to - Recipient email
+ * @param {Object} booking - Booking object
+ * @param {Object} service - Service object
+ * @param {Object} business - Business object
+ * @param {Object} user - User object
+ */
+const sendBookingEmail = async (to, booking, service, business, user) => {
+  try {
+    const mailOptions = {
+      from: process.env.MAIL_USER,
+      to: to,
+      subject: "Booking Confirmation - Home Glame",
+      html: `
+        <h2>Booking Created Successfully</h2>
+        <p>Hello,</p>
+        <p>A new booking has been created.</p>
+
+        <h3>📌 Booking Details:</h3>
+        <p><strong>Booking ID:</strong> ${booking.id}</p>
+        <p><strong>Status:</strong> ${booking.status}</p>
+        <p><strong>Booked At:</strong> ${booking.bookedAt}</p>
+
+        <h3>🛠️ Service Details:</h3>
+        <p><strong>Service:</strong> ${service?.name}</p>
+        <p><strong>Description:</strong> ${service?.description}</p>
+
+        <h3>🏢 Business:</h3>
+        <p><strong>Business Name:</strong> ${business?.name}</p>
+        <p><strong>Address:</strong> ${business?.address}</p>
+
+        <h3>👤 User:</h3>
+        <p><strong>Name:</strong> ${user?.name}</p>
+        <p><strong>Email:</strong> ${user?.email}</p>
+
+        <hr/>
+        <p>This is an automated confirmation email.</p>
+      `,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+  } catch (error) {
+    console.error("Email Error:", error);
+  }
+};
+
+
 module.exports = {
   sendOTPEmail,
   verifyEmailConfig,
   transporter,
+  sendBookingEmail
 };
