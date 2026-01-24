@@ -1,6 +1,5 @@
 const { createClient } = require('redis');
 
-// Create Redis client - support both URL and individual config
 let redisClient;
 if (process.env.REDIS_URL) {
   redisClient = createClient({
