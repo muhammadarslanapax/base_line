@@ -1,8 +1,19 @@
 const dotenv = require("dotenv");
-const app = require("./app");
 dotenv.config();
+
+const app = require("./app");
+const http = require("http");
+
+const { initializeSocket } = require("./services/socket");
+
+// Create ONE http server
+const server = http.createServer(app);
+
+// Attach Socket.IO to this server
+initializeSocket(server);
+
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log(`🔥🔥🔥🔥🔥🔥 Server is running on ${PORT}`);
+server.listen(PORT, () => {
+  console.log(`🔥 Server + Socket.IO running on port ${PORT}`);
 });

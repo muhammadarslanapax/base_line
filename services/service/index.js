@@ -73,6 +73,7 @@ if (!category) {
 const getMyServices = asyncHandler(async (req, res) => {
   const userId = req.user.id;
 
+
   if (req.user.role !== "business") {
     throw new apiError(403, "Only business owners can view their services");
   }

@@ -1,0 +1,35 @@
+'use strict';
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable('Chats', {
+      id: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.literal("gen_random_uuid()"),
+        primaryKey: true,
+        allowNull: false,
+      },
+      user1Id: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: { model: "Users", key: "id" },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
+      user2Id: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: { model: "Users", key: "id" },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
+      lastMessage: { type: Sequelize.STRING, allowNull: true },
+      lastMessageAt: { type: Sequelize.DATE, allowNull: true },
+      createdAt: { allowNull: false, type: Sequelize.DATE },
+      updatedAt: { allowNull: false, type: Sequelize.DATE },
+    });
+  },
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable('Chats');
+  }
+};
